@@ -87,3 +87,8 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+
+# others
+*.sqlite3
+*get-pip.py
