@@ -1,0 +1,9 @@
+#!/bin/bash
+
+pip install -r server/requirements.txt
+source venv/bin/activate
+cd server
+
+python manage.py makemigrations bento
+python manage.py migrate
+python manage.py runserver

@@ -1,0 +1,4 @@
+captcha==0.2.1
+Django==1.10.5
+djangorestframework==3.5.3
+

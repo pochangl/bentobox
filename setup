@@ -1,0 +1,29 @@
+#!/bin/bash
+echo "只適用於類unix且有python的系統"
+
+pip_path=$(which pip)
+virtualenv_path=$(which virtualenv)
+
+if [ ! -x $virtualenv_path ]; then
+  if [ ! -x $pip_path ]; then
+    echo "需要安裝pip"
+    sudo echo
+    wget https://bootstrap.pypa.io/get-pip.py ./get-pip.py
+    sudo python ./get-pip.py
+    rm ./get-pip.py
+  fi
+  echo "需要安裝virtualenv"
+  sudo pip install virtualenv
+fi
+
+rm -r venv
+virtualenv -p python3 --clear venv
+source venv/bin/activate
+
+pip install -r server/requirements.txt
+source venv/bin/activate
+cd server
+
+python manage.py migrate
+python manage.py test bento
+python manage.py createsuperuser
