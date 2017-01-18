@@ -4,8 +4,6 @@ from django.utils.timezone import now
 
 class Order(models.Model):
     """
-        primary:
-            主鍵 (Primary Key), 原django預設是id, 但被用來存身份證字號了
         captcha: captcha驗證碼
         id: 身份證字號
         resNo: 訂位預約號
