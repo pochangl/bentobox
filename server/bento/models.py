@@ -4,7 +4,6 @@ from django.utils.timezone import now
 
 class Order(models.Model):
     """
-        captcha: captcha驗證碼
         id: 身份證字號
         resNo: 訂位預約號
         ribsBox: 排骨便當數量
