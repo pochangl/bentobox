@@ -1,14 +1,17 @@
 import random
 from rest_framework import generics, mixins
+from rest_framework.authentication import SessionAuthentication
 from .serializers import OrderSerializer
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
+from django.views.decorators.csrf import requires_csrf_token
 from .models import Order
 from captcha.image import ImageCaptcha
 from .permissions import CaptchaPermission
 
 image_captcha = ImageCaptcha()
 
+@requires_csrf_token
 def captcha(request):
     """
         captcha 頁面
@@ -33,6 +36,8 @@ class OrderMixin(object):
     """
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+    authentication_classes = (SessionAuthentication,)
+
 
     def get_object(self):
         """
