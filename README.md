@@ -11,3 +11,7 @@ https://docs.google.com/presentation/d/1bZzaR4E7wU5NG0hrJAM9_4B6hJIyUc2pMh0vPcTj
 
 跑setup可以安裝python 相關套件, 部份套件會需要超級使用者權限
 跑run 可以開啟django server
+
+
+client是vue project的資料夾
+server是django project的資料夾
