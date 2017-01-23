@@ -47,36 +47,12 @@ class OrderMixin(object):
     authentication_classes = [SessionAuthentication]
 
 
-    def get_object(self):
-        """
-            存取資料時, 皆需要id跟resNo為依據
-        """
-        data = self.request.data
-        return get_object_or_404(self.get_queryset(), id=data["id"], resNo=data["resNo"])
-
-
-class CancelOrderView(OrderMixin, generics.DestroyAPIView):
+class OrderView(OrderMixin, generics.RetrieveUpdateDestroyAPIView):
     """
-        取消訂單
+        任何訂單相關的操作
     """
-    def post(self, *args, **kwargs):
-        return self.destroy(*args, **kwargs)
-
-
-class LookupOrderView(OrderMixin, generics.RetrieveAPIView):
-    """
-        查詢定單
-    """
-    def post(self, *args, **kwargs):
-        return self.retrieve(*args, **kwargs)
-
-
-class UpdateOrderView(OrderMixin, generics.UpdateAPIView):
-    """
-        更新訂單
-    """
-    def post(self, *args, **kwargs):
-        return self.update(*args, **kwargs)
+    def get_queryset(self):
+        return super(OrderView, self).get_queryset().filter(id=self.kwargs['id'])
 
 
 class CreateOrderView(OrderMixin, generics.CreateAPIView):
@@ -84,5 +60,3 @@ class CreateOrderView(OrderMixin, generics.CreateAPIView):
         下訂單
     """
     permission_classes = (CaptchaPermission,)
-    def __init__(self, *args, **kwargs):
-        super(CreateOrderView, self).__init__(*args, **kwargs)

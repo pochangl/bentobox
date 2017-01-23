@@ -42,19 +42,23 @@ export default {
         captcha: this.captcha
       }
     },
+    orderURL () {
+      let order = this.orderID()
+      return '/api/order/' + order.resNo + '/' + order.id
+    },
     cancelOrder () {
-      this.$http.post('/api/cancel', this.orderID(), this.csrfHeader)
+      this.$http.delete(this.orderURL(), this.csrfHeader)
     },
     updateOrder () {
       let order = this.order()
       order.ribsBox = 5
-      this.$http.post('/api/update', order, this.csrfHeader)
+      this.$http.put(this.orderURL(), order, this.csrfHeader)
     },
     lookupOrder () {
-      this.$http.post('/api/query', this.orderID(), this.csrfHeader).then(this.updateOrder)
+      this.$http.get(this.orderURL(), {}, this.csrfHeader).then(this.updateOrder)
     },
     createOrder () {
-      this.$http.post('/api/order', this.order(), this.csrfHeader).then(this.lookupOrder)
+      this.$http.post('/api/create_order', this.order(), this.csrfHeader).then(this.lookupOrder)
     },
     login () {
       this.$http.get('/api/force_login').then(this.createOrder)
