@@ -19,11 +19,7 @@ export default {
   },
   computed: {
     csrfHeader () {
-      return {
-        headers: {
-          'X-CSRFToken': cookie.parse(document.cookie).csrftoken
-        }
-      }
+      return {}
     }
   },
   methods: {
