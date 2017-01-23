@@ -8,3 +8,6 @@ http://bentobox.goodideas-campus.com/
 
 討論用的PPT
 https://docs.google.com/presentation/d/1bZzaR4E7wU5NG0hrJAM9_4B6hJIyUc2pMh0vPcTjO-k/pub?start=true&loop=false&delayms=3000
+
+跑setup可以安裝python 相關套件, 部份套件會需要超級使用者權限
+跑run 可以開啟django server
