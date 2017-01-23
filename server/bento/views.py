@@ -4,12 +4,20 @@ from rest_framework.authentication import SessionAuthentication
 from .serializers import OrderSerializer
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
+from django.contrib.auth.models import User
+from django.contrib.auth import login
 from django.views.decorators.csrf import requires_csrf_token
 from .models import Order
 from captcha.image import ImageCaptcha
 from .permissions import CaptchaPermission
 
 image_captcha = ImageCaptcha()
+
+def force_login(request):
+    if not request.user.is_authenticated():
+        user = User.objects.get(id=1)
+        login(request, user)
+    return HttpResponse()
 
 @requires_csrf_token
 def captcha(request):
@@ -36,7 +44,7 @@ class OrderMixin(object):
     """
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
-    authentication_classes = (SessionAuthentication,)
+    authentication_classes = [SessionAuthentication]
 
 
     def get_object(self):
@@ -76,3 +84,5 @@ class CreateOrderView(OrderMixin, generics.CreateAPIView):
         下訂單
     """
     permission_classes = (CaptchaPermission,)
+    def __init__(self, *args, **kwargs):
+        super(CreateOrderView, self).__init__(*args, **kwargs)

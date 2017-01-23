@@ -27,3 +27,7 @@ cd server
 python manage.py migrate
 python manage.py test bento
 python manage.py createsuperuser
+
+echo "正在安裝vue相關套件"
+cd ../client
+./setup
